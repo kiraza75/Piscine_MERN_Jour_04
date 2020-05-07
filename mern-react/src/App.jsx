@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Register} from "./index.jsx";
+import {Register} from "./register";
 
 class App extends React.Component{
     constructor(props) {

@@ -1,5 +1,5 @@
 let mongoose = require('mongoose');
-const User = require('./models/user');
+const user = require('./models/user');
 const database = require('./database/db');
 
 
@@ -12,13 +12,23 @@ mongoose.connect(database.db, {
     error => {
         console.log('Database could not be connected : ' + error)
     }
-)
+);
 let library ={
     Register: function(request, response)  {
-        let login = request.body.login;
-        let email = request.body.email;
-        let password = request.body.password;
-        let passwordConfirm = request.body.passwordConfirm
+      var userObj =   {
+           login: request.body.login,
+          email: request.body.email,
+          password: request.body.pass
+       };
+       user.create(request.body, (error, data) => {
+           if (error) {
+            console.log(error);
+           }
+           else {
+               console.log(data);
+               res.json(data);
+           }
+       })
     },
     Connect: function (request, response) {
 

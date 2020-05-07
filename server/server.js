@@ -1,7 +1,7 @@
 const express = require("express");
 let cors = require("cors");
 let bodyParser = require("body-parser");
-var lib = require('./lib');
+let lib = require('./lib');
 
 const app = express();
 
