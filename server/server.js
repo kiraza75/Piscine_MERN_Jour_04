@@ -1,13 +1,25 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+let cors = require("cors");
+let bodyParser = require("body-parser");
 var lib = require('./lib');
 
 const app = express();
 
-app.use(bodyParser);
+app.use(bodyParser.json());
 
-app.post("/inscription", (req, res) => {
-   lib.Register(req, res)
+app.use(bodyParser.urlencoded({
+   extended: true
+}));
+app.use(cors());
+
+app.post("/inscription", (request, response) => {
+   lib.Register(request, response);
 });
 
-app.listen(4242);
+app.post("/connexion", (request, response) => {
+   lib.Connect(request, response);
+});
+
+app.listen(4242, () => {
+   console.log('Connected to port 4242');
+});

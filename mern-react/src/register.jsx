@@ -5,12 +5,6 @@ export class Register extends React.Component {
     constructor(props) {
         super(props);
 
-        this.onChangeUserLogin = this.onChangeUserLogin.bind(this);
-        this.onChangeUserEmail = this.onChangeUserEmail.bind(this);
-        this.onChangeUserLogin = this.onChangeUserPassword.bind(this);
-        this.onChangeUserLogin = this.onChangeUserPasswordConfirm.bind(this);
-
-        this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             login: "",
@@ -21,27 +15,20 @@ export class Register extends React.Component {
         }
     }
 
-    onChangeUserLogin(e) {
-        this.setState({ login: e.target.value })
-    }
-
-    onChangeUserEmail(e) {
-        this.setState({ email: e.target.value })
-    }
-    onChangeUserPassword(e) {
-        this.setState( { password: e.target.value})
-    }
-
-    onChangeUserPasswordConfirm(e) {
-        this.setState({passwordConfirm: e.target.value})
-    }
+    inputChange = (e) => {
+        this.setState({
+            [e.target.id]: e.target.value
+        });
+        console.log(this.state)
+    };
     onSubmit(e) {
         e.preventDefault();
 
         const userObject = {
             login: this.state.login,
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            passwordConfirm: this.state.passwordConfirm
         };
 
         axios.post('http://localhost:4242/inscription', userObject)
@@ -60,22 +47,22 @@ export class Register extends React.Component {
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Login</label>
-                        <input type="text" value={this.state.login} onChange={this.onChangeUserLogin} className="form-control" />
+                        <input type="text" value={this.state.login} onChange={this.inputChange} className="form-control" />
                     </div>
                     <div className="form-group">
                         <label>Email</label>
-                        <input type="text" value={this.state.email} onChange={this.onChangeUserEmail} className="form-control" />
+                        <input type="text" value={this.state.email} onChange={this.inputChange} className="form-control" />
                     </div>
                     <div className="form-group">
                         <label>Password</label>
-                        <input type="text" value={this.state.password} onChange={this.onChangeUserPassword} className="form-control" />
+                        <input type="text" value={this.state.password} onChange={this.inputChange} className="form-control" />
                     </div>
                     <div className="form-group">
                         <label>Confirm Password</label>
-                        <input type="text" value={this.state.passwordConfirm} onChange={this.onChangeUserPasswordConfirm} className="form-control" />
+                        <input type="text" value={this.state.passwordConfirm} onChange={this.inputChange} className="form-control" />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Create User" className="btn btn-success btn-block" />
+                        <button  className="btn btn-success btn-block" onClick={this.onSubmit} >Inscription</button>
                     </div>
                 </form>
             </div>
